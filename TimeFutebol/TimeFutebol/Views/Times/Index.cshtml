@@ -1,0 +1,84 @@
+﻿@model IEnumerable<TimeFutebol.Models.TimesViewModel>
+
+@{
+    ViewData["Title"] = "Times Cadastrados";
+}
+
+<!-- Foreach para listar os times salvos -->
+@foreach (var item in Model)
+{
+    <div class="accordion" id="painelTimes">
+        <div class="card">
+            <div class="card-header" style="background-color: @item.corPrimaria">
+                <div class="row">
+                    <div class="col-10">
+                        <button style="color: #ffffff" class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#@item.identificadores">
+                            <img src="@item.imagem" width="30" height="30" />
+                            @item.time
+                        </button>
+                    </div>
+                    <div class="col-2">
+                        <a asp-action="CriarJogador" asp-route-time="@item.time" style="color: #ffffff" class="btn btn-sm btn-outline-dark">Novo Jogador</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="@item.identificadores" class="collapse show" data-parent="#painelTimes">
+                <div class="card-body">
+                    <!-- Metodo para listar os jogadores no card body passando "item" para a cláusula "Where" do sql-->
+                    @await Component.InvokeAsync("ListaJogadores", item)
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<!-- div modal para confirmar a exclusão do jogador -->
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmação de Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Confirmar exclusão do jogador?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary btnFechar" data-bs-dismiss="modal">Não</button>
+                <button type="button" class="btn btn-outline-danger btnExcluir">Sim</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Método para confirmar exclusão que chama a função "ExcluirJogador via url" -->
+    <script>
+        function ConfirmarExclusao(id) {
+
+            $(".modal").modal();
+
+            $(".btnExcluir").on('click', function () {
+
+                $.ajax({
+                    url: 'Times/ExcluirJogador',
+                    method: 'POST',
+                    data: { id: id },
+                    success: function (data) {
+                        $(".modal").modal('hide');
+                        location.reload(true);
+                    }
+                });
+            });
+
+            $('.btnFechar').on('click', function () {
+
+                id = null;
+
+                $(".modal").modal('hide');
+            });
+        }
+    </script>
+
+}

@@ -1,0 +1,67 @@
+﻿@model TimeFutebol.Models.Jogador
+
+@{
+    ViewData["Title"] = "Novo Jogador";
+}
+
+
+
+<div class="container">
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <text class="card-header">Cadastro do Novo Jogador:</text>
+                <form asp-action="CriarJogador">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="nome" class="control-label">Nome:</label>
+                            <input asp-for="nome" class="form-control" />
+                            <span asp-validation-for="nome" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="apelido" class="control-label">Apelido:</label>
+                            <input asp-for="apelido" class="form-control" />
+                            <span asp-validation-for="apelido" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="idade" class="control-label">Idade:</label>
+                            <input asp-for="idade" class="form-control" />
+                            <span asp-validation-for="idade" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="posicaoCampo" class="control-label">Posição em campo:</label>
+                            <input asp-for="posicaoCampo" class="form-control" />
+                            <span asp-validation-for="posicaoCampo" class="text-danger"></span>
+                        </div>
+                        <input asp-for="time" type="hidden" />
+                        <div class="form-group">
+                            <label asp-for="nParticipacoesCampeonado" class="control-label">Número de participações em campeonatos:</label>
+                            <input asp-for="nParticipacoesCampeonado" class="form-control" />
+                            <span asp-validation-for="nParticipacoesCampeonado" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="form-group">
+                            <input type="submit" value="Salvar" class="btn btn-outline-success" /> &emsp;
+                            <a asp-action="Index" class="btn btn-link btn-sm">Voltar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card-body {
+        background: #ffffff;
+    }
+
+    .card-header {
+        background-image: linear-gradient(#e4e6e3, #ffffff);
+    }
+
+   
+</style>

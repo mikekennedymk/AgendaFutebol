@@ -1,0 +1,50 @@
+﻿@model TimeJogadores
+
+@{
+    TimeJogadores timeJogadores = Model;
+    Layout = null;
+
+
+}	
+
+	<div class="border border-light shadow rounded rounded-lg p-4" style="background-color: @timeJogadores.timesViewModel.corSecundaria">
+
+		@if (Model.jogadores.Count() > 0)
+		{
+
+			<ul class="list-group">
+
+				@foreach (var item in Model.jogadores)
+				{
+
+					<li class="list-group-item">
+						<div class="row">
+							<div class="col-2">
+								<span class="badge badge-info">
+									@Html.DisplayFor(modelItem => item.idade)
+								</span>
+							</div>
+							<div class="col-6"> 
+								@Html.DisplayFor(modelItem => item.nome)
+							</div>
+							<div class="col-4">
+								<a asp-action="AtualizarJogador" asp-route-jogadorId="@item.id" class="btn btn-sm btn-outline-primary rounded-circle">
+									<i class="fa fa-pencil-square-o"></i>
+								</a>
+								<a href="#" class="btn btn-sm btn-outline-danger rounded-circle" onclick="ConfirmarExclusao(@item.id)">
+									<i class="fa fa-times-circle"></i>
+								</a>
+							</div>
+						</div>
+					</li>
+				}
+			
+
+			</ul>
+
+		}
+		else { 
+		
+			<p class="alert alert-warning">Time sem jogadores.</p> 
+		}
+	</div>
